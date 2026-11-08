@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <DefineConstants>$(DefineConstants);SCHEDULE_I_047</DefineConstants>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\InventoryExpanded\Utility\BackpackPersistencePolicy.cs" Link="BackpackPersistencePolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Utility\AtomicTextFileWriter.cs" Link="AtomicTextFileWriter.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Config\ConfigSyncPayloadPolicy.cs" Link="ConfigSyncPayloadPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Config\GameplaySettingsPolicy.cs" Link="GameplaySettingsPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Utility\CashRoutingPolicy.cs" Link="CashRoutingPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Utility\QuickMoveDestinationPriorityPolicy.cs" Link="QuickMoveDestinationPriorityPolicy.cs" />
+  </ItemGroup>
+</Project>

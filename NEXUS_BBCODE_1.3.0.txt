@@ -1,0 +1,54 @@
+[size=5][b]Backpack & Inventory QoL 1.3.0[/b][/size]
+
+[b]By PigeonLabs[/b]
+
+Thank you for 5,000 unique downloads! Version 1.3.0 expands production options while preserving separate builds for Schedule I MAIN and BETA.
+
+[b]What's new[/b]
+[list]
+[*][b]Increase Production:[/b] Optional, independent support for Drying Racks, Mixing Station V1, Mixing Station V2, and hand-harvested weed and coca. Each uses the selected Stack Size multiplier (2x, 4x, or 8x); processing and growth timing remain native.
+[*][b]Cash quick-move:[/b] Shift-click cash between your inventory and supported general storage, including lockers, safes, racks, and closets. Machine inventories remain excluded from general cash routing.
+[*][b]Delivery safety:[/b] Retains the item-loss protection for delivery stack chunking. Purchased delivery quantities are unchanged.
+[*]Existing Backpack and inventory quality-of-life features remain available.
+[/list]
+
+[b]Compatibility[/b]
+[list]
+[*][b]MAIN:[/b] Schedule I 0.4.6f13 — `BackpackInventoryQoL.dll` version 1.3.0
+[*][b]BETA:[/b] Schedule I 0.4.7 — `BackpackInventoryQoL.Beta047.dll` version 1.3.0-beta.47
+[*]Install the DLL for your branch only; do not install both at once.
+[/list]
+
+[b]Known issue[/b]
+Mixing Station V1's skillcheck display may not show both recipe ingredients clearly. Live checks confirmed the quantities and output behaved correctly.
+
+[b]Not included in 1.3.0[/b]
+Packaging Station scaling, Delivery Capacity, Mushroom Bed yield, and scaling for the Cauldron, Chemistry Station, Lab Oven, Brick Press, and Mushroom Spawn Station are deferred.
+
+[b]Security and file verification[/b]
+[i]VirusTotal submissions are pending. Do not publish this security section as a completed scan record until the links and results below are replaced with verified reports.[/i]
+[list]
+[*][b]MAIN — 1.3.0 — `BackpackInventoryQoL.dll`[/b]
+SHA-256: `8072ACB3F7BB7A4BA7DE5A36EEA1E6EAA5260596DACD040EB65325A59C7AFB35`
+VirusTotal: pending submission; no report URL or detection result available.
+[*][b]BETA — 1.3.0-beta.47 — `BackpackInventoryQoL.Beta047.dll`[/b]
+SHA-256: `6A266EAEE59E630B252162ECE584880C13E364259F5FC96F67A5D3EAF264E36E`
+VirusTotal: pending submission; no report URL or detection result available.
+[/list]
+
+[b]Security details[/b]
+[code]
+MAIN
+Filename: BackpackInventoryQoL.dll
+Version: 1.3.0
+SHA-256: 8072ACB3F7BB7A4BA7DE5A36EEA1E6EAA5260596DACD040EB65325A59C7AFB35
+VirusTotal: pending submission
+
+BETA
+Filename: BackpackInventoryQoL.Beta047.dll
+Version: 1.3.0-beta.47
+SHA-256: 6A266EAEE59E630B252162ECE584880C13E364259F5FC96F67A5D3EAF264E36E
+VirusTotal: pending submission
+[/code]
+
+[b]PigeonLabs[/b]
