@@ -1,0 +1,296 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PlatformTarget>x64</PlatformTarget>
+        <RootNamespace>Backpack</RootNamespace>
+        <Version>1.3.1</Version>
+        <Authors>PigeonLabs</Authors>
+        <Description>Expanded Backpack storage and inventory quality-of-life tools for Schedule I.</Description>
+        <Product>Inventory Expanded</Product>
+        <AssemblyTitle>Inventory Expanded</AssemblyTitle>
+        <IsPackable>false</IsPackable>
+        <LangVersion>latest</LangVersion>
+        <Configurations>MONO;IL2CPP;IL2CPP_BETA_047</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <!-- All project inputs are explicit. Prevent old bin/obj DLLs from becoming
+             CandidateAssemblyFiles when release builds redirect output paths. -->
+        <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'IL2CPP'">
+        <TargetFramework>net6.0</TargetFramework>
+        <AssemblyName>BackpackInventoryQoL</AssemblyName>
+        <DefineConstants>$(DefineConstants);SCHEDULE_I_047</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'IL2CPP_BETA_047'">
+        <TargetFramework>net6.0</TargetFramework>
+        <AssemblyName>BackpackInventoryQoL.Beta047</AssemblyName>
+        <Version>1.3.0-beta.47</Version>
+        <DefineConstants>$(DefineConstants);IL2CPP;SCHEDULE_I_047;SCHEDULE_I_BETA_047;SCHEDULE_I_BETA_BUILD</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'MONO'">
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <AssemblyName>BackpackInventoryQoL_Mono</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'IL2CPP'">
+        <ReferenceProfile>MAIN_047f12</ReferenceProfile>
+        <ReferenceGameVersion>0.4.7f12</ReferenceGameVersion>
+        <ExpectedAssemblyCSharpSha256>F4F7CD358408CACE6267380B921DABF79946EBD688840A229F081751ED73518D</ExpectedAssemblyCSharpSha256>
+        <S1Dir Condition="'$(S1Dir)' == ''">$(MSBuildThisFileDirectory)..\..\..\dev-bootstrap\refs\MAIN_047f12</S1Dir>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'IL2CPP_BETA_047'">
+        <ReferenceProfile>BETA_047</ReferenceProfile>
+        <ReferenceGameVersion>0.4.7f6 reference profile</ReferenceGameVersion>
+        <ExpectedAssemblyCSharpSha256>43DF688224AAC7FA9C8AF99234AA5E646334366A3FE5B6DCEA1548DE6B099E31</ExpectedAssemblyCSharpSha256>
+        <S1Dir Condition="'$(S1Dir)' == ''">$(MSBuildThisFileDirectory)..\..\..\dev-bootstrap\refs\BETA_047</S1Dir>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'MONO'">
+        <S1Dir Condition="'$(S1Dir)' == ''">D:\Steam\steamapps\common\Schedule I - Mono</S1Dir>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="BackpackMod.cs"/>
+        <Compile Include="Cheats\CheatSettings.cs"/>
+        <Compile Include="Cheats\CheatState.cs"/>
+        <Compile Include="Cheats\DryingRackCapacityPolicy.cs"/>
+        <Compile Include="Cheats\MixingProductionPolicy.cs"/>
+        <Compile Include="Cheats\PlantYieldPolicy.cs"/>
+        <Compile Include="Cheats\PackagingProductionPolicy.cs"/>
+        <Compile Include="Cheats\PackagingMk2ObservationPolicy.cs"/>
+        <Compile Include="Cheats\PackagingTransactionGuard.cs"/>
+        <Compile Include="Cheats\ProductionCheats.cs"/>
+        <Compile Include="Cheats\ProductionQuantityPolicy.cs"/>
+        <Compile Include="Cheats\TemporaryCapacityOverrideScopes.cs"/>
+        <Compile Include="Compatibility\LegacyConflictGuard.cs"/>
+        <Compile Include="Compatibility\LegacyConflictPolicy.cs"/>
+        <Compile Include="Compatibility\Il2CppTypeRegistrar.cs"/>
+        <Compile Include="Compatibility\RestartRequiredCoordinator.cs"/>
+        <Compile Include="Config\ConfigSyncManager.cs"/>
+        <Compile Include="Config\Configuration.cs"/>
+        <Compile Include="Config\PreferenceMigrationResolver.cs"/>
+        <Compile Include="Patches\BodySearchBehaviourPatch.cs"/>
+        <Compile Include="Patches\CartPatch.cs"/>
+        <Compile Include="Patches\CharacterInterfacePatch.cs"/>
+        <Compile Include="Patches\CheatPatch.cs"/>
+        <Compile Include="Patches\DiagnosticPatch.cs"/>
+        <Compile Include="Patches\DeliveryPatch.cs"/>
+        <Compile Include="Patches\DryingRackProductionPatch.cs"/>
+        <Compile Include="Patches\MixingStationProductionPatch.cs"/>
+        <Compile Include="Patches\PlantYieldProductionPatch.cs"/>
+        <Compile Include="Patches\LevelManagerPatch.cs"/>
+        <Compile Include="Patches\PlayerManagerPatch.cs"/>
+        <Compile Include="Patches\PlayerPatch.cs"/>
+        <Compile Include="Patches\PlayerSpawnerPatch.cs"/>
+        <Compile Include="Patches\PhonePatch.cs"/>
+        <Compile Include="Patches\ReloadPatch.cs"/>
+        <Compile Include="Patches\QuestItemPatch.cs"/>
+        <Compile Include="Patches\ShopInterfacePatch.cs"/>
+        <Compile Include="Patches\InventoryInteractionPatch.cs"/>
+        <Compile Include="Patches\StorageMenuPatch.cs"/>
+        <Compile Include="PlayerBackpack.cs"/>
+        <Compile Include="UI\ContextualBackpackPanel.cs"/>
+        <Compile Include="UI\PhoneBackpackUI.cs"/>
+        <Compile Include="UI\PhoneBackpackScalePolicy.cs"/>
+        <Compile Include="UI\BackpackSearchBar.cs"/>
+        <Compile Include="UI\BackpackItemInfoPlacement.cs"/>
+        <Compile Include="UI\FilterConfigPanelEnhancements.cs"/>
+        <Compile Include="UI\ResponsiveBackpackUI.cs"/>
+        <Compile Include="UI\StorageSortButton.cs"/>
+        <Compile Include="UI\UserSlotLockOverlay.cs"/>
+        <Compile Include="Utility\InventorySorter.cs"/>
+        <Compile Include="Utility\CashRoutingPolicy.cs"/>
+        <Compile Include="Utility\InventorySortOrder.cs"/>
+        <Compile Include="Utility\MagazineConsolidator.cs"/>
+        <Compile Include="Utility\OvercapInventoryPolicy.cs"/>
+        <Compile Include="Utility\StorageHotkeys.cs"/>
+        <Compile Include="Utility\DiagnosticTrace.cs"/>
+        <Compile Include="Utility\BackpackPersistencePolicy.cs"/>
+        <Compile Include="Utility\Logger.cs"/>
+        <Compile Include="Utility\PlayerExtensions.cs"/>
+        <Compile Include="Utility\ResourceUtils.cs"/>
+        <Compile Include="Utility\UserSlotLockRegistry.cs"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Assets\Icon.png"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'IL2CPP' Or '$(Configuration)' == 'IL2CPP_BETA_047'">
+        <Reference Include="MelonLoader">
+            <HintPath>$(S1Dir)\MelonLoader\net6\MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="0Harmony">
+            <HintPath>$(S1Dir)\MelonLoader\net6\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Runtime">
+            <HintPath>$(S1Dir)\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Common">
+            <HintPath>$(S1Dir)\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2Cppcom.rlabrecque.steamworks.net">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Il2Cppcom.rlabrecque.steamworks.net.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppFishNet.Runtime">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppNewtonsoft.Json">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Il2CppNewtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppScheduleOne.Core">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Il2CppScheduleOne.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.InputSystem">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Unity.InputSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.JSONSerializeModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(S1Dir)\MelonLoader\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'MONO'">
+        <Reference Include="MelonLoader">
+            <HintPath>$(S1Dir)\MelonLoader\net35\MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="0Harmony">
+            <HintPath>$(S1Dir)\MelonLoader\net35\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="com.rlabrecque.steamworks.net">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
+        </Reference>
+        <Reference Include="FishNet.Runtime">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\FishNet.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="mscorlib">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\mscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Core">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\System.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.InputSystem">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\Unity.InputSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.JSONSerializeModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(S1Dir)\Schedule I_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Target Name="ValidateIl2CppReferenceProfile" BeforeTargets="ResolveReferences"
+            Condition="'$(Configuration)' == 'IL2CPP' Or '$(Configuration)' == 'IL2CPP_BETA_047'">
+        <PropertyGroup>
+            <_AssemblyCSharpReference>$(S1Dir)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</_AssemblyCSharpReference>
+        </PropertyGroup>
+        <Message Importance="high" Text="Reference profile: $(ReferenceProfile) ($(ReferenceGameVersion)); directory: $(S1Dir)" />
+        <Error Condition="!Exists('$(_AssemblyCSharpReference)')"
+               Text="Reference profile $(ReferenceProfile) is missing Assembly-CSharp.dll at $(_AssemblyCSharpReference). Use its preserved reference directory." />
+        <ItemGroup>
+            <_ReferenceFingerprint Include="$(_AssemblyCSharpReference)" />
+        </ItemGroup>
+        <GetFileHash Files="@(_ReferenceFingerprint)" Algorithm="SHA256">
+            <Output TaskParameter="Items" ItemName="_ReferenceFingerprintWithHash" />
+        </GetFileHash>
+        <Message Importance="high" Text="Assembly-CSharp SHA-256: @(_ReferenceFingerprintWithHash->'%(FileHash)')" />
+        <Error Condition="'@(_ReferenceFingerprintWithHash->'%(FileHash)')' != '$(ExpectedAssemblyCSharpSha256)'"
+               Text="Wrong reference set for $(ReferenceProfile): expected $(ExpectedAssemblyCSharpSha256), got @(_ReferenceFingerprintWithHash->'%(FileHash)') at $(_AssemblyCSharpReference)." />
+    </Target>
+
+    <ItemGroup Condition="'$(Configuration)' == 'IL2CPP' Or '$(Configuration)' == 'IL2CPP_BETA_047'">
+        <Publicize Include="Assembly-CSharp" />
+        <Publicize Include="FishNet.Runtime" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'MONO'">
+        <Publicize Include="Assembly-CSharp" />
+        <Publicize Include="FishNet.Runtime" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(DeployToGame)' == 'true'">
+        <Exec Command="tasklist | findstr /I &quot;Schedule.*I.exe&quot; &gt;nul &amp;&amp; taskkill /F /IM &quot;Schedule I.exe&quot;&#xD;&#xA;COPY &quot;$(TargetPath)&quot; &quot;$(S1Dir)\Mods&quot;&#xD;&#xA;START &quot;&quot; &quot;$(S1Dir)\Schedule I.exe&quot;" />
+    </Target>
+</Project>
