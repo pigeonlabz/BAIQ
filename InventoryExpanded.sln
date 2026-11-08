@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryExpanded", "src\InventoryExpanded\InventoryExpanded.csproj", "{19A8DB42-3220-47E9-A068-7B3CDA97CFA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		IL2CPP|Any CPU = IL2CPP|Any CPU
+		MONO|Any CPU = MONO|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19A8DB42-3220-47E9-A068-7B3CDA97CFA1}.IL2CPP|Any CPU.ActiveCfg = IL2CPP|Any CPU
+		{19A8DB42-3220-47E9-A068-7B3CDA97CFA1}.IL2CPP|Any CPU.Build.0 = IL2CPP|Any CPU
+		{19A8DB42-3220-47E9-A068-7B3CDA97CFA1}.MONO|Any CPU.ActiveCfg = MONO|Any CPU
+		{19A8DB42-3220-47E9-A068-7B3CDA97CFA1}.MONO|Any CPU.Build.0 = MONO|Any CPU
+	EndGlobalSection
+EndGlobal

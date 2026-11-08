@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\InventoryExpanded\Compatibility\LegacyConflictPolicy.cs" Link="LegacyConflictPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Compatibility\Il2CppTypeRegistrar.cs" Link="Il2CppTypeRegistrar.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Compatibility\RestartRequiredCoordinator.cs" Link="RestartRequiredCoordinator.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\DryingRackCapacityPolicy.cs" Link="DryingRackCapacityPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\MixingProductionPolicy.cs" Link="MixingProductionPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\PlantYieldPolicy.cs" Link="PlantYieldPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\PackagingProductionPolicy.cs" Link="PackagingProductionPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\PackagingMk2ObservationPolicy.cs" Link="PackagingMk2ObservationPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\PackagingTransactionGuard.cs" Link="PackagingTransactionGuard.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\ProductionQuantityPolicy.cs" Link="ProductionQuantityPolicy.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Cheats\TemporaryCapacityOverrideScopes.cs" Link="TemporaryCapacityOverrideScopes.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\Utility\InventorySortOrder.cs" Link="InventorySortOrder.cs" />
+    <Compile Include="..\..\src\InventoryExpanded\UI\PhoneBackpackScalePolicy.cs" Link="PhoneBackpackScalePolicy.cs" />
+  </ItemGroup>
+</Project>
