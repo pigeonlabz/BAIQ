@@ -1,0 +1,124 @@
+namespace Backpack;
+
+internal static class BackpackPersistencePolicy
+{
+    private const string PayloadDelimiter = "|||";
+
+    internal static bool CanWriteBackpack(bool isOwner, bool storageAvailable, bool storageBoundToPlayer)
+    {
+        return isOwner && storageAvailable && storageBoundToPlayer;
+    }
+
+    internal static bool CanWriteReplicatedBackpack(
+        bool isHostServer,
+        bool playerIsOwner,
+        bool playerIdentityMatches,
+        bool storageBoundToPlayer,
+        bool storageIsBackpack,
+        bool storageIsServerInitialized,
+        bool storageHasSlots,
+        bool serverMutationObserved)
+    {
+        return isHostServer
+               && !playerIsOwner
+               && playerIdentityMatches
+               && storageBoundToPlayer
+               && storageIsBackpack
+               && storageIsServerInitialized
+               && storageHasSlots
+               && serverMutationObserved;
+    }
+
+    internal static bool CanAcknowledgeSnapshot(long currentVersion, long persistedVersion, long snapshotVersion)
+    {
+        return snapshotVersion > persistedVersion && snapshotVersion <= currentVersion;
+    }
+
+    internal static bool IsCurrentDirtySnapshot(long currentVersion, long persistedVersion, long snapshotVersion)
+    {
+        return snapshotVersion > persistedVersion && snapshotVersion == currentVersion;
+    }
+
+    internal static bool IsValidPlayerPathIndex(int index, int playerDataCount, int playerPathCount)
+    {
+        return index >= 0 && index < playerDataCount && index < playerPathCount;
+    }
+
+#if SCHEDULE_I_047
+    internal static bool IsValidPlayerDataIndex(int index, int playerDataCount)
+    {
+        return index >= 0 && index < playerDataCount;
+    }
+#endif
+
+    internal static bool IsMatchingPlayerIdentity(string requestedCode, string returnedCode, string indexedCode)
+    {
+        return !string.IsNullOrWhiteSpace(requestedCode)
+               && !string.IsNullOrWhiteSpace(returnedCode)
+               && string.Equals(requestedCode, returnedCode, StringComparison.Ordinal)
+               && string.Equals(returnedCode, indexedCode, StringComparison.Ordinal);
+    }
+
+#if SCHEDULE_I_047
+    internal static bool IsMatchingPlayerFileIdentity(string expectedCode, string actualCode)
+    {
+        return !string.IsNullOrWhiteSpace(expectedCode)
+               && !string.IsNullOrWhiteSpace(actualCode)
+               && string.Equals(expectedCode, actualCode, StringComparison.Ordinal);
+    }
+
+    internal static bool IsPathWithinRoot(string candidatePath, string rootPath)
+    {
+        if (string.IsNullOrWhiteSpace(candidatePath) || string.IsNullOrWhiteSpace(rootPath))
+            return false;
+
+        try
+        {
+            var root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(rootPath));
+            var candidate = Path.GetFullPath(candidatePath);
+            return candidate.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    internal static bool IsImmediateChildOfRoot(string candidatePath, string rootPath)
+    {
+        if (string.IsNullOrWhiteSpace(candidatePath) || string.IsNullOrWhiteSpace(rootPath))
+            return false;
+
+        try
+        {
+            var root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(rootPath));
+            var candidate = Path.GetFullPath(candidatePath);
+            return string.Equals(Path.GetDirectoryName(candidate), root, StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+#endif
+
+    internal static bool TryExtractBackpackPayload(
+        string contents,
+        out string nativeInventory,
+        out string backpackPayload)
+    {
+        nativeInventory = contents;
+        backpackPayload = null;
+
+        if (string.IsNullOrEmpty(contents))
+            return false;
+
+        var delimiterIndex = contents.IndexOf(PayloadDelimiter, StringComparison.Ordinal);
+        if (delimiterIndex < 0)
+            return false;
+
+        nativeInventory = contents[..delimiterIndex];
+        backpackPayload = contents[(delimiterIndex + PayloadDelimiter.Length)..];
+        return true;
+    }
+}
